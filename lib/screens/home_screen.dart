@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:my_location/services/gps_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,18 +26,18 @@ class _HomePageState extends State<HomePage> {
             );
           }
           Position position = snapshot.data!;
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Latitude - ${position.latitude}',
-                  style: const TextStyle(fontSize: 24),
-                ),
-                Text('Longitude - ${position.longitude}',
-                    style: const TextStyle(fontSize: 24))
-              ],
-            ),
+          return GoogleMap(
+            mapType: MapType.hybrid,
+            initialCameraPosition: CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 15),
+            markers: {
+              Marker(
+                  markerId: const MarkerId("My Location"),
+                  icon: BitmapDescriptor.defaultMarker,
+                  infoWindow: const InfoWindow(title: "My Location"),
+                  position: LatLng(position.latitude, position.longitude))
+            },
           );
         },
       ),
