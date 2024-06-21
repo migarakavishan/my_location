@@ -1,6 +1,5 @@
 import 'package:geolocator/geolocator.dart';
 
-// AIzaSyDAMAvrFbsJ5-jZWto0Xtzf_QhaooyOHs0
 
 class GpsService{
   
